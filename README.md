@@ -1,11 +1,11 @@
-# NetherSiphon: Automated Hostile Ingestion & Asynchronous Threat Neutralization Architecture
-**NetherSiphon** is an enterprise-grade, containerized Cyber Counter-Intelligence (CI) Deception Fabric and Security Information and Event Management (SIEM) pipeline. The architecture is engineered to safely emulate a vulnerable Linux server, intercept brute-force SSH attacks, and systematically exfiltrate malicious keystrokes, credential combinations, and post-compromise commands in real time. 
+# IntruderTrap: Automated Hostile Ingestion & Asynchronous Threat Neutralization Architecture
+**IntruderTrap** is an enterprise-grade, containerized Cyber Counter-Intelligence (CI) Deception Fabric and Security Information and Event Management (SIEM) pipeline. The architecture is engineered to safely emulate a vulnerable Linux server, intercept brute-force SSH attacks, and systematically exfiltrate malicious keystrokes, credential combinations, and post-compromise commands in real time. 
 
 By deploying an isolated, medium-interaction deception node, the system strips control away from foreign adversaries or automated bots and asynchronously siphons their tactical telemetry down a decoupled analytics pipeline for ingestion, normalization, indexing, and visualization.
 
 ---
 
-## 🛠️ Tech Stack & Cyber Ecosystem
+## Tech Stack & Cyber Ecosystem
 
 * **Deception Framework:** Cowrie (Medium-Interaction SSH/Telnet Adversary Emulation Node)
 * **Log Shipping Broker:** Elastic Filebeat v7.17.10 (Lightweight JSON Log Harvester)
@@ -16,7 +16,7 @@ By deploying an isolated, medium-interaction deception node, the system strips c
 
 ---
 
-## 🏗️ Architectural Topology & Data Lifecycle
+## Architectural Topology & Data Lifecycle
 
 The engineering pipeline uses a modular microservices design pattern to securely isolate hostile traffic while maintaining an un-throttled, live security logging loop:
 
@@ -63,7 +63,7 @@ The engineering pipeline uses a modular microservices design pattern to securely
 
 ---
 
-## ⚙️ Deployment & Setup Guide
+##  Deployment & Setup Guide
 
 Follow these sequential steps to stand up the NetherSiphon architecture from scratch on your host environment.
 
@@ -116,7 +116,7 @@ ssh root@localhost -p 2222
 
 ---
 
-## 🛠️ Production Configurations & Codebases
+##  Production Configurations & Codebases
 
 ### 1. Multi-Container Infrastructure Framework (`docker-compose.yml`)
 ```yaml
@@ -194,26 +194,26 @@ setup.template.settings:
 
 ---
 
-## 🔍 System Engineering Obstacles & Remediation Actions
+##  System Engineering Obstacles & Remediation Actions
 
-### 💥 Challenge 1: JVM Memory Out-of-Bounds & Initialization Failures
+###  Challenge 1: JVM Memory Out-of-Bounds & Initialization Failures
 * **Symptom:** The Elasticsearch database container repeatedly crashed on launch, emitting the error: `Error: Could not find or load main class "-Xms512m"`.
 * **Root Cause:** Enclosing Java environment variables inside absolute string quotes (`"-Xms512m -Xmx512m"`) forced the container's compilation script to interpret the entire configuration string as a single unmapped execution file rather than discrete cluster parameters.
 * **Remediation:** Removed the outer quote wrappers within the `ES_JAVA_OPTS` property block. This let the environment parse the boundaries natively, establishing a stable single-node database core.
 
-### 💥 Challenge 2: Cross-Platform File System Permission Disconnects
+###  Challenge 2: Cross-Platform File System Permission Disconnects
 * **Symptom:** The Filebeat shipping microservice crashed on initialization, outputting: `Exiting: error loading config file: config file ("filebeat.yml") can only be writable by the owner but the permissions are "-rwxrwxrwx"`.
 * **Root Cause:** Elastic products enforce a hardcoded security compliance validation rejecting any execution files that have relaxed global read/write access. Because the project was hosted on a Windows filesystem mounting down into a Linux WSL2 container network, NTFS file translations default to global write permissions (`777`), breaking Linux container policy constraints.
 * **Remediation:** Altered the orchestration engine initialization rules by appending an explicit execution flag override string: `command: filebeat -e -strict.perms=false`. This safely bypassed the permission strictness check while maintaining stable operational security.
 
-### 💥 Challenge 3: Ingestion Directory Volume Desynchronization
+###  Challenge 3: Ingestion Directory Volume Desynchronization
 * **Symptom:** Ingestion fields showed 0 matching results inside Kibana, even though manual connection tests on the honeypot were responding perfectly.
 * **Root Cause:** The external shared mounting paths incorrectly linked down into `/home/cowrie/cowrie-git/var/log/cowrie`. In modern container distributions, the application logs directly to the root baseline directory `/cowrie/cowrie-git/var/log/cowrie/`. This path mismatch forced Filebeat to read an empty volume.
 * **Remediation:** Rewrote the volume mounting maps inside the orchestration layer, connecting the log directory directly to the shipper core and unlocking index pattern resolution.
 
 ---
 
-## 📈 Live Analytical Threat Intelligence Captured
+##  Live Analytical Threat Intelligence Captured
 
 Once the pipeline was resolved, simulated adversarial campaigns were run against the network, revealing telemetry indexing in Kibana:
 
@@ -223,7 +223,7 @@ Once the pipeline was resolved, simulated adversarial campaigns were run against
 
 ---
 
-## 📋 Administration Commands
+##  Administration Commands
 
 To gracefully spin down the microservices architecture while protecting persistent local databases and data volumes:
 ```bash
