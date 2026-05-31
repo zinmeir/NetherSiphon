@@ -235,3 +235,7 @@ To purge the environment completely, including caches and data history indices t
 ```bash
 docker compose down -v
 ```
+
+---
+
+Built by [Muhammad Shaheer Akhtar](https://github.com/zinmeir)
