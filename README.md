@@ -7,6 +7,17 @@ By deploying an isolated, medium-interaction deception node, the system strips c
 
 ---
 
+## 🛠️ Tech Stack & Cyber Ecosystem
+
+* **Deception Framework:** Cowrie (Medium-Interaction SSH/Telnet Adversary Emulation Node)
+* **Log Shipping Broker:** Elastic Filebeat v7.17.10 (Lightweight JSON Log Harvester)
+* **SIEM Storage & Indexing:** Elastic Elasticsearch v7.17.10 (Distributed Data Cluster Core)
+* **Analytics Workspace:** Elastic Kibana v7.17.10 (Visual Threat Hunting Dashboard Interface)
+* **Containerization & DevOps:** Docker, Docker Compose (Multi-Service Microservices Mesh)
+* **Automation & Runtime:** Windows PowerShell, Linux Bash (POSIX Interface Shells via WSL2)
+
+---
+
 ## 🏗️ Architectural Topology & Data Lifecycle
 
 The engineering pipeline uses a modular microservices design pattern to securely isolate hostile traffic while maintaining an un-throttled, live security logging loop:
