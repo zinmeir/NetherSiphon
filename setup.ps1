@@ -1,13 +1,13 @@
 # setup.ps1
 Write-Host "===================================================="
-Write-Host "🚀 Starting Threat Intel Honeypot Project Generator"
+Write-Host "Starting Threat Intel Honeypot Project Generator"
 Write-Host "===================================================="
 
-Write-Host "📁 Creating directories..."
+Write-Host "Creating directories..."
 New-Item -ItemType Directory -Force -Path "config", "data" | Out-Null
 New-Item -ItemType File -Force -Path "data\.keep" | Out-Null
 
-Write-Host "📝 Generating .env file..."
+Write-Host "Generating .env file..."
 Set-Content -Path ".env" -Value @'
 # ELK Stack Version
 ELASTIC_VERSION=8.10.2
@@ -19,7 +19,7 @@ KIBANA_PASSWORD=SuperSecurePassword123!
 ES_JAVA_OPTS="-Xms512m -Xmx512m"
 '@
 
-Write-Host "📝 Generating docker-compose.yml..."
+Write-Host "Generating docker-compose.yml..."
 Set-Content -Path "docker-compose.yml" -Value @'
 version: '3.8'
 
@@ -94,7 +94,7 @@ networks:
     driver: bridge
 '@
 
-Write-Host "📝 Generating config/cowrie.cfg..."
+Write-Host "Generating config/cowrie.cfg..."
 Set-Content -Path "config\cowrie.cfg" -Value @'
 [honeypot]
 hostname = svr-ubuntu-01
@@ -104,7 +104,7 @@ enabled = true
 logfile = var/log/cowrie/cowrie.json
 '@
 
-Write-Host "📝 Generating config/filebeat.yml..."
+Write-Host "Generating config/filebeat.yml..."
 Set-Content -Path "config\filebeat.yml" -Value @'
 filebeat.inputs:
 - type: filestream
@@ -136,5 +136,5 @@ processors:
 '@
 
 Write-Host "===================================================="
-Write-Host "✅ Project setup complete successfully!"
+Write-Host "Project setup complete successfully!"
 Write-Host "===================================================="
