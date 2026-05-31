@@ -1,6 +1,4 @@
 # NetherSiphon: Automated Hostile Ingestion & Asynchronous Threat Neutralization Architecture
-
-##Overview
 **NetherSiphon** is an enterprise-grade, containerized Cyber Counter-Intelligence (CI) Deception Fabric and Security Information and Event Management (SIEM) pipeline. The architecture is engineered to safely emulate a vulnerable Linux server, intercept brute-force SSH attacks, and systematically exfiltrate malicious keystrokes, credential combinations, and post-compromise commands in real time. 
 
 By deploying an isolated, medium-interaction deception node, the system strips control away from foreign adversaries or automated bots and asynchronously siphons their tactical telemetry down a decoupled analytics pipeline for ingestion, normalization, indexing, and visualization.
